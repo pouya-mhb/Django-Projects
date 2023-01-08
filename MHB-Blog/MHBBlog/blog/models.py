@@ -13,8 +13,8 @@ class Post (models.Model):
     )
 
     title = models.CharField(max_length=100)
-    slug = models.SlugField(max_lenght=100 , unique_for_date='publish_date')
-    published_at = models.DateTimeField(default=timezone.now)
+    slug = models.SlugField(max_length=100 , unique_for_date='publish_date')
+    published_date = models.DateTimeField(default=timezone.now)
     created_date = models.DateTimeField(auto_now_add=True)
     upadted_date = models.DateTimeField(auto_now= True)
     author = models.ForeignKey(User,on_delete=models.CASCADE,related_name='blog_posts')
@@ -22,7 +22,7 @@ class Post (models.Model):
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default='draft')
 
     class Meta :
-        ordering = ('-publish', )
+        ordering = ('-published_date',)
 
         def __str__(self) -> str:
             return self.title
