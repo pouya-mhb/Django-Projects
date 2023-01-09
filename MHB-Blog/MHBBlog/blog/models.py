@@ -12,17 +12,17 @@ class Post (models.Model):
         ('published' , 'Published')
     )
 
+    author = models.ForeignKey(User,on_delete=models.CASCADE,related_name='blog_posts')
     title = models.CharField(max_length=100)
+    status = models.CharField(max_length=100, choices=STATUS_CHOICES, default='draft')
     slug = models.SlugField(max_length=100 , unique_for_date='publish_date')
-    published_date = models.DateTimeField(default=timezone.now)
+    publish_date = models.DateTimeField(default=timezone.now)
     created_date = models.DateTimeField(auto_now_add=True)
     upadted_date = models.DateTimeField(auto_now= True)
-    author = models.ForeignKey(User,on_delete=models.CASCADE,related_name='blog_posts')
     body = models.TextField()
-    status = models.CharField(max_length=100, choices=STATUS_CHOICES, default='draft')
 
     class Meta :
-        ordering = ('-published_date',)
+        ordering = ('-publish_date',)
 
-        def __str__(self) -> str:
-            return self.title
+    def __str__(self):
+        return self.title
