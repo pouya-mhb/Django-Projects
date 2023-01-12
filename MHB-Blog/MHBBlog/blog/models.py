@@ -4,6 +4,10 @@ from django.contrib.auth.models import User
 
 
 # Create your models here.
+class PublishedManager (models.Manager):
+    def get_queryset(self):
+        return super().get_queryset(PublishedManager,
+            self)
 
 class Post (models.Model):
     STATUS_CHOICES = (
@@ -20,6 +24,8 @@ class Post (models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     upadted_date = models.DateTimeField(auto_now= True)
     body = models.TextField()
+    objects = models.Manager()
+    published=PublishedManager()
 
     class Meta :
         ordering = ('-publish_date',)
