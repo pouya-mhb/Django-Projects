@@ -1,5 +1,6 @@
 from django.contrib import admin
 from blog.models import Post
+from django.core.paginator import Paginator
 
 # Register your models here.
 
@@ -30,3 +31,5 @@ class PostAdmin(admin.ModelAdmin):
     ordering = (
         'author' , 'publish_date' , 'status'
     )
+
+    #Todo : Pagination
